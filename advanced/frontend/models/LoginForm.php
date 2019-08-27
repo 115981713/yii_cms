@@ -12,6 +12,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
+    public $verifyCode;
     public $rememberMe = true;
 
     private $_user;
@@ -29,6 +30,7 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['verifyCode','captcha'],
         ];
     }
 
@@ -75,5 +77,20 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('common','username'),
+            'password' => Yii::t('common','password'),
+            'email' => Yii::t('common','email'),
+            'rememberMe' => Yii::t('common','rememberMe'),
+            'rePassword' => Yii::t('common','rePassword'),
+            'verifyCode' => Yii::t('common','verifyCode'),
+        ];
     }
 }

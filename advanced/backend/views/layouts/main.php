@@ -34,11 +34,20 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $menu_left = [
+        ['label' => Yii::t('yii','文章管理'), 'url' => ['/article/index'],'items' => 
+            [
+                ['label' => '<i class="fa fa-sign-out"></i>'.'文章列表','url' => ['/article/index'],'linkOptions' => ['data-method' => 'post']],
+                ['label' => '<i class="fa fa-credit-card"></i>'.'文章分类','url' => ['/articleCate/index'],'linkOptions' => ['data-method' => 'post']],
+            ]
+    ],
+    ];    
+
     $menuItems = [
         ['label' => Yii::t('yii','Home'), 'url' => ['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => Yii::t('common','Login'), 'url' => ['/site/login']];
     } else {
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
@@ -46,6 +55,12 @@ AppAsset::register($this);
             'linkOptions' => ['data-method' => 'post']
         ];
     }
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $menu_left,
+        'encodeLabels' => false,
+    ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
@@ -74,3 +89,9 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+<?php $this->registerJsFile('@web//staticjs/function.js'); ?>
+    
+
+
+
+

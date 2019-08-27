@@ -76,4 +76,28 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+
+              /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => '账号',
+            'auth_key' => '自动登录key',
+            'password' => '密码',
+            'rememberMe' => '记住我',
+            'password_hash' => '密码',
+            'password_reset_token' => '重置密码token',
+            'email_validate_token' => '邮箱验证token',
+            'email' => '邮箱',
+            'role' => '角色等级',
+            'status' => '状态',
+            'avatar' => '头像',
+            'vip_lv' => 'vip等级',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
+        ];
+    }
 }

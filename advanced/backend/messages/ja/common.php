@@ -1,0 +1,20 @@
+<?php 
+return [
+	'Blog' => '博客j',
+	'Home' => '首页j',
+	'About' => '关于j',
+	'Contact' => '联系我们j',
+	'Signup' => '注册j',
+	'Login' => '登录j', 
+	'username' => '账号j', 
+	'email' => '邮箱j', 
+	'password' => '密码j', 
+	'rePassword' => '重复密码j', 
+	'verifyCode' => '验证码j', 
+	'rememberMe' => '记住我j', 
+	'Two times the password is not consitent' => '两次密码不一致j',
+	'This username has already been taken.' => '账号已经存在j',
+	'This email address has already been taken.' => '邮箱已经存在j',
+	'Please fill out the following fields to signup:' => '请填写以下注册信息j:',
+	'Please fill out the following fields to login:' => '请填写以下登陆信息j:',
+];

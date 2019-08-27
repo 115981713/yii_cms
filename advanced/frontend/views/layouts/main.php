@@ -37,21 +37,31 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => Yii::t('yii','Home'), 'url' => ['/site/index']],
         ['label' => Yii::t('common','About'), 'url' => ['/site/about']],
-        ['label' => Yii::t('common','Contact'), 'url' => ['/site/contact']],
     ];
+    $menu_right = [];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t('common','Signup'), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => Yii::t('common','Login'), 'url' => ['/site/login']];
+        $menu_right[] = ['label' => Yii::t('common','Signup'), 'url' => ['/site/signup']];
+        $menu_right[] = ['label' => Yii::t('common','Login'), 'url' => ['/site/login']];
     } else {
-        $menuItems[] = [
-            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-            'url' => ['/site/logout'],
-            'linkOptions' => ['data-method' => 'post']
+        $menu_right[] = [
+            'label' => '<img src="'.Yii::$app->params['avatar']['small'].'" style="height:20px;margin-right:10px;border-radius:10px;">'.Yii::$app->user->identity->username,
+            // 'url' => ['/site/logout'],
+            
+            'items' => [
+                ['label' => '<i class="fa fa-sign-out"></i>'.'退出','url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']],
+                ['label' => '<i class="fa fa-credit-card"></i>'.'个人中心','url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']],
+            ]
         ];
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => $menuItems,
+    ]);    
+
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
+        'items' => $menu_right,
     ]);
     NavBar::end();
     ?>

@@ -13,6 +13,8 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $rePassword;
+    public $verifyCode;
 
     /**
      * @inheritdoc
@@ -22,17 +24,19 @@ class SignupForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('common','This username has already been taken.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('common','This email address has already been taken.')],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            [['password','rePassword'], 'required'],
+            [['password','rePassword'], 'string', 'min' => 6],
+            ['rePassword','compare','compareAttribute'=>'password','message'=>Yii::t('common','Two times the password is not consitent')],
+            ['verifyCode','captcha']
         ];
     }
 
@@ -62,9 +66,11 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => '账号',
-            'password' => '密码',
-            'email' => '邮箱',
+            'username' => Yii::t('common','username'),
+            'password' => Yii::t('common','password'),
+            'email' => Yii::t('common','email'),
+            'rePassword' => Yii::t('common','rePassword'),
+            'verifyCode' => Yii::t('common','verifyCode'),
         ];
     }
 }

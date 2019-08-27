@@ -1,22 +1,13 @@
 <?php
+preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
+$lang = $matches[1];
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-    'language' => 'zh-CN',
+    'language' => $lang,
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        //语言包配置
-        'i18n' => [
-            'translations' => [
-                '*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    // 'basePath' => '/messages',
-                    'fileMap' => [
-                        'common' => 'common.php',
-                    ],
-                ]
-            ]
-        ],
+        
     ],
 ];
