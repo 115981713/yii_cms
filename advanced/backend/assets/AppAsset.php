@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
         'static/css/common.css',
     ];
     public $js = [
+        'libs/layer/layer.js',
         'static/js/function.js',
     ];
     public $depends = [

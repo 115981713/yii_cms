@@ -17,13 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('编辑', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('删除', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::button('删除', [
+            'class' => 'btn btn-danger delete',
+            'data' => $model->id,
+            'data-c' => 'article',
+            'data-v' => 'article',
+        ]) ?> 
     </p>
 
     <?= DetailView::widget([

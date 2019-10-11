@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => Html::a('摘要'),
                 'buttons' => [
                     'summary' => function ($url, $model, $key) { 
-                        return Html::button('摘要详情', ['class' => 'btn btn-sm btn-success','title' => $model['summary']] ); 
+                        return Html::button('摘要详情', ['class' => 'btn btn-sm btn-success look_content','data' => $model['summary'],'data-title' => $model->title] ); 
                     }
                 ],
                 'headerOptions' => ['style'=>'text-align:center;'],
@@ -47,31 +47,44 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{content}',
-                'header' => Html::a('内容','/article/index?sort=status',['data-sort'=>'status','class' => 'status']),
+                'header' => Html::a('内容'),
                 'buttons' => [
                     'content' => function ($url, $model, $key) { 
-                        return Html::button('内容详情', ['class' => 'btn btn-sm btn-success','title' => $model['content']] ); 
+                        return Html::button('内容详情', ['class' => 'btn btn-sm btn-success look_content','data' => $model['content'],'data-title' => $model->title] ); 
                     }
                 ],
                 'headerOptions' => ['style'=>'text-align:center;'],
                 'contentOptions' => ['class'=>'text-center'],
             ],
+
             [
-                'attribute' => 'label_img',
-                'class' => 'yii\grid\DataColumn',
-                'format' => [
-                    'image',
-                    [
-                        'width'=>'84',
-                        'height'=>'84'
-                    ]
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{content}',
+                'header' => Html::a('标签图'),
+                'buttons' => [
+                    'content' => function ($url, $model, $key) { 
+                        return Html::button('查看图片', ['class' => 'btn btn-sm btn-success label_img look_image','data' => $model['label_img']] ); 
+                    }
                 ],
-                'value' => function ($model) {
-                    return $model->label_img;
-                },
                 'headerOptions' => ['style'=>'text-align:center;'],
                 'contentOptions' => ['class'=>'text-center'],
             ],
+            // [
+            //     'attribute' => 'label_img',
+            //     'class' => 'yii\grid\DataColumn',
+            //     'format' => [
+            //         'image',
+            //         [
+            //             'width'=>'84',
+            //             'height'=>'84'
+            //         ]
+            //     ],
+            //     'value' => function ($model) {
+            //         return $model->label_img;
+            //     },
+            //     'headerOptions' => ['style'=>'text-align:center;'],
+            //     'contentOptions' => ['class'=>'text-center'],
+            // ],
             [
                 'attribute' => 'user_id',
                 'class' => 'yii\grid\DataColumn',
@@ -107,13 +120,20 @@ $this->params['breadcrumbs'][] = $this->title;
             // ],
             
             [   
-                'header' => Html::a('操作'),
                 'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => ['style'=>'text-align:center;'],
-                'contentOptions' => ['class'=>'text-center actions'],
+                'header' => Html::a('操作'),//表单头
+                'template' => '{view}{update}{delete}',//操作按钮
+                'buttons' => [//操作链接
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-trash delete" data="'.$model->id.'" data-title="文章" data-c="article"></span>', '#', ['title' => '删除'] ); 
+                    }
+                ],
+                'headerOptions' => ['style'=>'text-align:center;'],//表单头居中
+                'contentOptions' => ['class'=>'text-center actions'],//表单内容居中
             ],
 
         ],
     ]); ?>
 
 </div>
+

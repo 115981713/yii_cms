@@ -33,11 +33,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template' => '{is_valid}',
+                'header' => Html::a('状态'),
+                'buttons' => [
+                    'is_valid' => function ($url, $model, $key) { 
+                        return $model['status'] == 1 ? Html::button('正常', ['class' => 'btn btn-sm btn-success'] ) : Html::button('无效', ['class' => 'btn btn-sm btn-danger'] ); 
+                    }
+                ],
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
+            ],
+
+            [
+                'class' => 'yii\grid\ActionColumn',
                 'header' => Html::a('操作'),//表单头
-                'template' => '{view}{update}{delete}{void}',//操作按钮
+                'template' => '{view}{update}{void}{valid}',//操作按钮
                 'buttons' => [//操作链接
                     'void' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-user"></span>', $url, ['title' => '设置未无效'] ); 
+                        return $model['status'] == 1 ? Html::a('<span class="glyphicon glyphicon-remove"></span>', $url, ['title' => '设置为无效'] ) : ''; 
+                    }
+                    ,'valid' => function ($url, $model, $key) {
+                        return $model['status'] == 0 ? Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, ['title' => '设置为有效'] ) : ''; 
                     },
                 ],
                 'headerOptions' => ['style'=>'text-align:center;'],//表单头居中

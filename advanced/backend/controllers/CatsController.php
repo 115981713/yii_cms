@@ -23,7 +23,7 @@ class CatsController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Cats::find(),
+            'query' => Cats::find()->orderBy('status desc'),
         ]);
 
         return $this->render('index', [
@@ -91,6 +91,40 @@ class CatsController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }    
+
+    /**
+     * 设置无效 an existing Cats model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionVoid($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 0;
+        $res = $model->save();
+        if ($res) {
+            return $this->redirect(['index']);
+        }
+
+    }    
+
+    /**
+     * 设置有效 an existing Cats model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionValid($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 1;
+        $res = $model->save();
+        if ($res) {
+            return $this->redirect(['index']);
+        }
+
     }
 
     /**

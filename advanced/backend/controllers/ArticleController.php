@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Article;
+use common\models\Article;
 use yii\data\ActiveDataProvider;
 use backend\controllers\Base\BaseController;
 use yii\web\NotFoundHttpException;
@@ -66,7 +66,7 @@ class ArticleController extends BaseController
                 $path = Common::set_UploadFile_img($file,'article');
                 $model->label_img = $path;
             }
-            
+
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -122,11 +122,38 @@ class ArticleController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $id = $_POST['id'];
+        $model = $this->findModel($id);
+        if ($model) {
+            $img = $model->label_img;
+            $result = $model->delete();
+            if ($result) {
+                $data = [
+                    'status' => 200,
+                    'msg' => '删除成功！',
+                ];
+                if ($img) {
+                    $path = explode('//',$img);
+                    $path = explode('/',$path[1]);
+                    unset($path[0]);
+                    $path = implode('/',$path);
+                    unlink($path);
+                }
+            } else {
+                $data = [
+                    'status' => 400,
+                    'msg' => '删除失败！',
+                ];
+            }
+        } else {
+            $data = [
+                'status' => 400,
+                'msg' => '文章不存在！',
+            ];
+        }
+        echo json_encode($data);die;
     }
 
     /**

@@ -29,7 +29,8 @@ class ArticleTags extends \yii\db\ActiveRecord
         return [
             [['post_num'], 'integer'],
             [['tag_name'], 'string', 'max' => 255],
-            [['tag_name'], 'unique']
+            [['tag_name'], 'unique'],
+            [['tag_name'], 'required'],
         ];
     }
 
