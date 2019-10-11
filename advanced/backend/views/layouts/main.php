@@ -38,7 +38,8 @@ AppAsset::register($this);
         ['label' => Yii::t('yii','文章管理'), 'url' => ['/article/index'],'items' => 
             [
                 ['label' => '<i class="fa fa-sign-out"></i>'.'文章列表','url' => ['/article/index'],'linkOptions' => ['data-method' => 'post']],
-                ['label' => '<i class="fa fa-credit-card"></i>'.'文章分类','url' => ['/articleCate/index'],'linkOptions' => ['data-method' => 'post']],
+                ['label' => '<i class="fa fa-credit-card"></i>'.'文章标签','url' => ['/article-targs/index'],'linkOptions' => ['data-method' => 'post']],
+                ['label' => '<i class="fa fa-credit-card"></i>'.'文章分类','url' => ['/cats/index'],'linkOptions' => ['data-method' => 'post']],
             ]
     ],
     ];    
@@ -89,7 +90,7 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
-<?php $this->registerJsFile('@web//staticjs/function.js'); ?>
+<?php $this->registerJsFile('@web//static/js/function.js'); ?>
     
 
 

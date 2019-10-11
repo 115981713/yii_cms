@@ -21,7 +21,8 @@ use Yii;
  */
 class Article extends \yii\db\ActiveRecord
 {
-    public $username;
+    public $username;//用户名称
+    public $cat_name;//分类名称
     /**
      * @inheritdoc
      */
@@ -37,6 +38,7 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['content'], 'string'],
+            [['title', 'summary', 'content', 'cat_id'], 'required'],
             [['cat_id', 'user_id', 'is_valid', 'created_at', 'updated_at'], 'integer'],
             [['title', 'summary', 'label_img', 'user_name'], 'string', 'max' => 255]
         ];
@@ -56,7 +58,7 @@ class Article extends \yii\db\ActiveRecord
             'cat_id' => '分类',
             'user_id' => '添加人',
             'user_name' => '用户名',
-            'is_valid' => '是否有效',
+            'is_valid' => '是否发布',
             'created_at' => '新建时间',
             'updated_at' => '编辑时间',
         ];

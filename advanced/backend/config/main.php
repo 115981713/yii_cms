@@ -36,7 +36,6 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'suffix' => ''
         ],
 
         'log' => [

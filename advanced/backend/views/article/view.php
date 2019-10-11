@@ -33,14 +33,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'summary',
             'content:ntext',
-            'label_img',
-            'cat_id',
             [
-                'attribute' => 'user_id',
-                'value'=> $model->username, 
+                'attribute' => 'label_img',
+                'format' => ['image',['width'=>'40','height'=>'40',]],
             ],
-            'user_name',
-            'is_valid',
+            [
+                'attribute' => 'cat_id',
+                'value'=> $model->cat_name, 
+            ],
+            // [
+            //     'attribute' => 'user_id',
+            //     'value'=> $model->username, 
+            // ],
+            // 'user_name',
+            [
+                'attribute' => 'is_valid',
+                'value' => $model->is_valid == 1 ? '已发布' : '未发布',
+            ],
             [
                 'attribute' => 'created_at',
                 'value'=> date('Y-m-d H:i:s',$model->created_at), 

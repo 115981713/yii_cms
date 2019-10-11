@@ -21,39 +21,97 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            // ['class' => 'yii\grid\SerialColumn'],          
+            [
+                'attribute' => 'title',
+                'class' => 'yii\grid\DataColumn',
+                'value' => function($data){
+                    return $data->title;
+                },
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
+            ],                                
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{summary}',
+                'header' => Html::a('摘要'),
+                'buttons' => [
+                    'summary' => function ($url, $model, $key) { 
+                        return Html::button('摘要详情', ['class' => 'btn btn-sm btn-success','title' => $model['summary']] ); 
+                    }
+                ],
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
+            ],            
 
-            'id',
-            'title',
-            'summary',
-            'content:ntext',
-            'label_img',
-            // 'cat_id',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{content}',
+                'header' => Html::a('内容','/article/index?sort=status',['data-sort'=>'status','class' => 'status']),
+                'buttons' => [
+                    'content' => function ($url, $model, $key) { 
+                        return Html::button('内容详情', ['class' => 'btn btn-sm btn-success','title' => $model['content']] ); 
+                    }
+                ],
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
+            ],
+            [
+                'attribute' => 'label_img',
+                'class' => 'yii\grid\DataColumn',
+                'format' => [
+                    'image',
+                    [
+                        'width'=>'84',
+                        'height'=>'84'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->label_img;
+                },
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
+            ],
             [
                 'attribute' => 'user_id',
                 'class' => 'yii\grid\DataColumn',
                 'value' => function($data){
                     return $data->username;
                 },
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
             ],
-            // 'user_name',
-            // 'is_valid',
-            // 'created_at',
-            // 'updated_at',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{status}',
-                'header' => Html::a('状态','/article/index?sort=status',['data-sort'=>'status','class' => 'status']),
+                'template' => '{is_valid}',
+                'header' => Html::a('发布状态','/article/index?sort=is_valid',['data-sort'=>'is_valid']),
                 'buttons' => [
-                    'status' => function ($url, $model, $key) { 
-                        return Html::a(Html::button('状态', ['class' => 'btn btn-sm'] ),'/article/create'); 
+                    'is_valid' => function ($url, $model, $key) { 
+                        return $model['is_valid'] == 1 ? Html::button('已发布', ['class' => 'btn btn-sm btn-success'] ) : Html::button('未发布', ['class' => 'btn btn-sm btn-danger'] ); 
                     }
                 ],
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
             ],
+            // [
+            //     'class' => 'yii\grid\ActionColumn',
+            //     'template' => '{status}',
+            //     'header' => Html::a('状态','/article/index?sort=status',['data-sort'=>'status','class' => 'status']),
+            //     'buttons' => [
+            //         'status' => function ($url, $model, $key) { 
+            //             return Html::button('状态', ['class' => 'btn btn-sm'] ); 
+            //         }
+            //     ],
+            //     'headerOptions' => ['style'=>'text-align:center;'],
+            //     'contentOptions' => ['class'=>'text-center'],
+            // ],
             
             [   
                 'header' => Html::a('操作'),
-                'class' => 'yii\grid\ActionColumn'],
+                'class' => 'yii\grid\ActionColumn',
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center actions'],
+            ],
 
         ],
     ]); ?>
