@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => Html::a('标签图'),
                 'buttons' => [
                     'content' => function ($url, $model, $key) { 
-                        return Html::button('查看图片', ['class' => 'btn btn-sm btn-success label_img look_image','data' => $model['label_img']] ); 
+                        return $model['label_img'] ? Html::button('查看图片', ['class' => 'btn btn-sm btn-success label_img look_image','data' => $model['label_img']] ) : ''; 
                     }
                 ],
                 'headerOptions' => ['style'=>'text-align:center;'],
