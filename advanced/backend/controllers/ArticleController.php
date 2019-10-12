@@ -114,6 +114,72 @@ class ArticleController extends BaseController
                 'cats' => Cats::getAll(),
             ]);
         }
+    }    
+
+    /**
+     * 设置为不发布
+     *  page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionStatus_no() {
+        $id = $_POST['id'];
+        $model = $this->findModel($id);
+        if ($model) {
+            $model->is_valid = 0;
+            $res = $model->save();
+            if ($res) {
+                $data = [
+                    'status' => 200,
+                    'msg' => '操作成功！'
+                ];
+            } else {
+                $data = [
+                    'status' => 400,
+                    'msg' => '操作失败！'
+                ];
+            }
+            echo json_encode($data);die;
+        } else {
+            $data = [
+                'status' => 400,
+                'msg' => '文章不存在！'
+            ];
+            echo json_encode($data);die;
+        }
+    }    
+
+    /**
+     * 设置为发布
+     *  page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionStatus_yes() {
+        $id = $_POST['id'];
+        $model = $this->findModel($id);
+        if ($model) {
+            $model->is_valid = 1;
+            $res = $model->save();
+            if ($res) {
+                 $data = [
+                    'status' => 200,
+                    'msg' => '操作成功！'
+                ];
+            } else {
+               $data = [
+                    'status' => 400,
+                    'msg' => '操作失败！'
+                ];
+            }
+            echo json_encode($data);die;
+        } else {
+            $data = [
+                'status' => 400,
+                'msg' => '文章不存在！'
+            ];
+            echo json_encode($data);die;
+        }
     }
 
     /**

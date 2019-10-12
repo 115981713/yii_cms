@@ -1,8 +1,12 @@
 // 注释
     // 200 :成功
     // 400 :失败
-    // 401 :其他
 // 注释
+
+// 全局已使用类名
+// disabled-click(遮幕)/preview-img(预览图片)/upload_img(上传图片)/delete(删除确认)
+// layer_confirm(一般弹窗确认)/look_image(查看图片)/look_content(查看内容)
+// 全局已使用类名
 
 // 圖片預覽
     function changepic(obj,data,src) {
@@ -154,10 +158,59 @@
             
             layer.closeAll();
         },function(){
-            layer_msg('链接超时',0);
+            
         });
     });
     // 删除确认
+
+    // 一般确认
+    $(document).on('click','.layer_confirm',function(){
+        var that = $(this);
+        var id = that.attr('data');//id
+        var option = that.attr('data-option') ? that.attr('data-option') : '';//额外参数
+        var title = that.attr('data-title');//名称
+        var controller = that.attr('data-c');//控制器名称
+        var action = that.attr('data-a');//方法名称
+
+        var btn = '确定'+title+'吗?';
+        var index_confirm = layer.confirm(btn, {
+            btn: ['是','否'], //按钮
+            title:'信息确认',
+        }, function(index){
+            show_disabled_click();
+            layer_loading();
+            var url = '/'+controller+'/'+action;
+                $.ajax({
+                    url:url,
+                    data:{id:id,option:option},
+                    type:'POST',
+                    dataType:'json',
+                    timeout:10000,
+                    success:function(data){
+                        var status = data.status;
+                        var msg = data.msg;
+                        hide_disabled_click();
+                        if (status == 200) {
+                            layer_msg(msg,1);
+                            setTimeout(function(){
+                                window.location.href = '/'+controller+'/index';
+                            },1000);
+                        } else {
+                            layer_msg(msg,2);
+                        }
+                    },
+                    error:function(){
+                        hide_disabled_click();
+                        layer_msg('請求失敗，請重試！',2);
+                    }
+                });
+            
+            layer.closeAll();
+        },function(){
+            
+        });
+    });
+    // 一般确认
 
     // 查看图片
     $(document).on('click','.look_image',function(){

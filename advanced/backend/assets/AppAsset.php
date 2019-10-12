@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'libs/layer/layer.js',
+        'libs/laydate/laydate.js',
         'static/js/function.js',
     ];
     public $depends = [

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -10,6 +11,7 @@ $this->title = '文章列表';
 $this->params['breadcrumbs'][] = '文章管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="article-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -122,11 +124,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header' => Html::a('操作'),//表单头
-                'template' => '{view}{update}{delete}',//操作按钮
+                'template' => '{view}{update}{delete}{status_no}{status_yes}',//操作按钮
                 'buttons' => [//操作链接
                     'delete' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-trash delete" data="'.$model->id.'" data-title="文章" data-c="article"></span>', '#', ['title' => '删除'] ); 
-                    }
+                    },
+                    'status_no' => function ($url, $model, $key) {
+                        return $model['is_valid'] == 1 ? Html::a('<span class="glyphicon glyphicon-remove layer_confirm" data="'.$model->id.'" data-c="article" data-a="status_no" data-title="该文章设置为不发布"></span>', '#', ['title' => '设置为不发布'] ) : ''; 
+                    },
+                    'status_yes' => function ($url, $model, $key) {
+                        return $model['is_valid'] == 0 ? Html::a('<span class="glyphicon glyphicon-ok layer_confirm" data="'.$model->id.'" data-c="article" data-a="status_yes" data-title="该文章设置为发布"></span>', '#', ['title' => '设置为发布'] ) : ''; 
+                    },
                 ],
                 'headerOptions' => ['style'=>'text-align:center;'],//表单头居中
                 'contentOptions' => ['class'=>'text-center actions'],//表单内容居中

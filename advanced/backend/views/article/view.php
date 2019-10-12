@@ -11,6 +11,8 @@ $this->params['breadcrumbs'][] = ['label' => '文章管理'];
 $this->params['breadcrumbs'][] = ['label' => '文章列表', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $this->registerJsFile('/libs/ueditor1.4/ueditor.config.js');?>
+<?php $this->registerJsFile('/libs/ueditor1.4/ueditor.all.js');?>
 <div class="article-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -31,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'summary',
-            'content:ntext',
+            'content:html',
+
             [
                 'attribute' => 'label_img',
                 'format' => ['image',['width'=>'40','height'=>'40',]],
@@ -61,3 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+<?php
+$this->registerJs('
+    var ue = UE.getEditor("container");
+'
+, \yii\web\View::POS_END);

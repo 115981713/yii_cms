@@ -105,9 +105,12 @@ class CatsController extends Controller
         $model->status = 0;
         $res = $model->save();
         if ($res) {
+            Yii::$app->session->setFlash('success', '操作成功！');
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('error', '操作失败！');
             return $this->redirect(['index']);
         }
-
     }    
 
     /**
@@ -122,9 +125,12 @@ class CatsController extends Controller
         $model->status = 1;
         $res = $model->save();
         if ($res) {
+            Yii::$app->session->setFlash('success', '操作成功！');
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('error', '操作失败！');
             return $this->redirect(['index']);
         }
-
     }
 
     /**
