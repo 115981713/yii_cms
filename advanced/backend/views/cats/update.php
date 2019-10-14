@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\Cats */
 
 $this->title = '编辑文章分类: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = '文章管理';
 $this->params['breadcrumbs'][] = ['label' => '文章分类', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '编辑';

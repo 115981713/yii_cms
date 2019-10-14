@@ -95,8 +95,8 @@ class ArticleController extends BaseController
         $label_img = $model->label_img;
 
         if ($model->load(Yii::$app->request->post())) {
-            $file = Common::get_img($_FILES['Article'],'label_img');
 
+            $file = Common::get_img($_FILES['Article'],'label_img');
             if ($file['size'] > 0) {
                 $path = Common::set_UploadFile_img($file,'article');
                 $model->label_img = $path;
@@ -104,6 +104,7 @@ class ArticleController extends BaseController
                 //如果没有上传图片保存原来的图片
                 $model->label_img = $label_img;
             }
+
             $res = $model->save();
             if ($res) {
                 return $this->redirect(['view', 'id' => $model->id]);

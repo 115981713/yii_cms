@@ -26,7 +26,7 @@ class Cats extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cat_name'], 'string', 'max' => 255],
+            [['cat_name','img'], 'string', 'max' => 255],
             [['cat_name'], 'unique'],
             [['cat_name'], 'required'],
         ];
@@ -40,6 +40,7 @@ class Cats extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cat_name' => '文章分类名称',
+            'img' => '图标',
             'status' => '状态',
         ];
     }

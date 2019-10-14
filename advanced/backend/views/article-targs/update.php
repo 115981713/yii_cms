@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\ArticleTags */
 
 $this->title = '编辑文章标签: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = '文章管理';
 $this->params['breadcrumbs'][] = ['label' => '文章标签', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '编辑';

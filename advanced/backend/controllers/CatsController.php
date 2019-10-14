@@ -5,17 +5,16 @@ namespace backend\controllers;
 use Yii;
 use common\models\Cats;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use backend\controllers\Base\BaseController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use common\models\Common;
 
 /**
  * CatsController implements the CRUD actions for Cats model.
     文章分类
  */
-class CatsController extends Controller
+class CatsController extends BaseController
 {
-
     /**
      * Lists all Cats models.
      * @return mixed
@@ -52,7 +51,21 @@ class CatsController extends Controller
     {
         $model = new Cats();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $file = Common::get_img($_FILES['Cats'],'img');
+            if ($file['size'] > 0) {
+                $path = Common::set_UploadFile_img($file,'cats');
+                $model->img = $path;
+            }
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', "添加成功！");
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->getSession()->setFlash('error', "添加失败！");
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -70,9 +83,26 @@ class CatsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $img = $model->img;
+        if ($model->load(Yii::$app->request->post())) {
+            $file = Common::get_img($_FILES['Cats'],'img');
+            if ($file['size'] > 0) {
+                $path = Common::set_UploadFile_img($file,'cats');
+                $model->img = $path;
+            } else {
+                //如果没有上传图片保存原来的图片
+                $model->img = $img;
+            }
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', "编辑成功！");
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->getSession()->setFlash('error', "编辑失败！");
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+            
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -99,18 +129,24 @@ class CatsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionVoid($id)
+    public function actionVoid()
     {
+        $id = $_POST['id'];
         $model = $this->findModel($id);
         $model->status = 0;
         $res = $model->save();
         if ($res) {
-            Yii::$app->session->setFlash('success', '操作成功！');
-            return $this->redirect(['index']);
+            $data = [
+                'status' => 200,
+                'msg' => '操作成功！'
+            ];
         } else {
-            Yii::$app->session->setFlash('error', '操作失败！');
-            return $this->redirect(['index']);
+            $data = [
+                'status' => 400,
+                'msg' => '操作失败！'
+            ];
         }
+        echo json_encode($data);die;
     }    
 
     /**
@@ -119,18 +155,24 @@ class CatsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionValid($id)
+    public function actionValid()
     {
+        $id = $_POST['id'];
         $model = $this->findModel($id);
         $model->status = 1;
         $res = $model->save();
         if ($res) {
-            Yii::$app->session->setFlash('success', '操作成功！');
-            return $this->redirect(['index']);
+            $data = [
+                'status' => 200,
+                'msg' => '操作成功！'
+            ];
         } else {
-            Yii::$app->session->setFlash('error', '操作失败！');
-            return $this->redirect(['index']);
+            $data = [
+                'status' => 400,
+                'msg' => '操作失败！'
+            ];
         }
+        echo json_encode($data);die;
     }
 
     /**

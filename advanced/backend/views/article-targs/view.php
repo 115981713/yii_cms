@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\ArticleTags */
 
 $this->title = $model->id;
+$this->params['breadcrumbs'][] = '文章管理';
 $this->params['breadcrumbs'][] = ['label' => '文章标签', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

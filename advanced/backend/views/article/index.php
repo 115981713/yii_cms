@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{content}',
-                'header' => Html::a('标签图'),
+                'header' => Html::a('图标'),
                 'buttons' => [
                     'content' => function ($url, $model, $key) { 
                         return $model['label_img'] ? Html::button('查看图片', ['class' => 'btn btn-sm btn-success label_img look_image','data' => $model['label_img']] ) : ''; 
@@ -108,19 +108,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style'=>'text-align:center;'],
                 'contentOptions' => ['class'=>'text-center'],
             ],
-            // [
-            //     'class' => 'yii\grid\ActionColumn',
-            //     'template' => '{status}',
-            //     'header' => Html::a('状态','/article/index?sort=status',['data-sort'=>'status','class' => 'status']),
-            //     'buttons' => [
-            //         'status' => function ($url, $model, $key) { 
-            //             return Html::button('状态', ['class' => 'btn btn-sm'] ); 
-            //         }
-            //     ],
-            //     'headerOptions' => ['style'=>'text-align:center;'],
-            //     'contentOptions' => ['class'=>'text-center'],
-            // ],
-            
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'header' => Html::a('操作'),//表单头
