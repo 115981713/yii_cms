@@ -3,37 +3,40 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\ArticleTags;
+use backend\models\AuthRoleAuth;
 use yii\data\ActiveDataProvider;
 use backend\controllers\Base\BaseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ArticleTargsController implements the CRUD actions for ArticleTags model.
+ * AuthRoleAuthController implements the CRUD actions for AuthRoleAuth model.
  */
-class ArticleTargsController extends BaseController
+class AuthRoleAuthController extends BaseController
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all ArticleTags models.
+     * Lists all AuthRoleAuth models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => ArticleTags::find(),
+            'query' => AuthRoleAuth::find(),
         ]);
 
         return $this->render('index', [
@@ -42,7 +45,7 @@ class ArticleTargsController extends BaseController
     }
 
     /**
-     * Displays a single ArticleTags model.
+     * Displays a single AuthRoleAuth model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +57,13 @@ class ArticleTargsController extends BaseController
     }
 
     /**
-     * Creates a new ArticleTags model.
+     * Creates a new AuthRoleAuth model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ArticleTags();
+        $model = new AuthRoleAuth();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +75,7 @@ class ArticleTargsController extends BaseController
     }
 
     /**
-     * Updates an existing ArticleTags model.
+     * Updates an existing AuthRoleAuth model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +94,7 @@ class ArticleTargsController extends BaseController
     }
 
     /**
-     * Deletes an existing ArticleTags model.
+     * Deletes an existing AuthRoleAuth model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +107,15 @@ class ArticleTargsController extends BaseController
     }
 
     /**
-     * Finds the ArticleTags model based on its primary key value.
+     * Finds the AuthRoleAuth model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ArticleTags the loaded model
+     * @return AuthRoleAuth the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ArticleTags::findOne($id)) !== null) {
+        if (($model = AuthRoleAuth::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

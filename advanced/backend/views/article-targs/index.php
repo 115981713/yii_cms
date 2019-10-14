@@ -7,6 +7,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '文章标签';
+$this->params['breadcrumbs'][] = '文章管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-tags-index">

@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Cats */
 
 $this->title = $model->id;
+$this->params['breadcrumbs'][] = '文章管理';
 $this->params['breadcrumbs'][] = ['label' => '文章分类', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,6 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'cat_name',
+            [
+                'attribute' => 'img',
+                'format' => ['image',['width'=>'40','height'=>'40',]],
+            ],
         ],
     ]) ?>
 

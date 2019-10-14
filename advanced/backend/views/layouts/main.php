@@ -35,14 +35,26 @@ AppAsset::register($this);
         ],
     ]);
     $menu_left = [
-        ['label' => Yii::t('yii','文章管理'), 'url' => ['/article/index'],'items' => 
+        ['label' => '文章管理', 'url' => ['/article/index'],'items' => 
             [
                 ['label' => '<i class="fa fa-sign-out"></i>'.'文章列表','url' => ['/article/index'],'linkOptions' => ['data-method' => 'post']],
                 ['label' => '<i class="fa fa-credit-card"></i>'.'文章标签','url' => ['/article-targs/index'],'linkOptions' => ['data-method' => 'post']],
                 ['label' => '<i class="fa fa-credit-card"></i>'.'文章分类','url' => ['/cats/index'],'linkOptions' => ['data-method' => 'post']],
             ]
-    ],
-    ];    
+        ],
+        ['label' => '权限管理', 'url' => ['/auth/index'],'items' => 
+            [
+                ['label' => '<i class="fa fa-sign-out"></i>'.'管理员','url' => ['/admin/index'],'linkOptions' => ['data-method' => 'post']],
+                ['label' => '<i class="fa fa-sign-out"></i>'.'权限','url' => ['/auth/index'],'linkOptions' => ['data-method' => 'post']],
+                ['label' => '<i class="fa fa-credit-card"></i>'.'角色','url' => ['/auth-role/index'],'linkOptions' => ['data-method' => 'post']],
+                ['label' => '<i class="fa fa-credit-card"></i>'.'角色权限','url' => ['/auth-role-auth/index'],'linkOptions' => ['data-method' => 'post']],
+            ]
+        ],
+    ];  
+
+    if (!Yii::$app->user->id) {
+        $menu_left = [];
+    }  
 
     $menuItems = [
         // ['label' => Yii::t('yii','Home'), 'url' => ['/site/index']],

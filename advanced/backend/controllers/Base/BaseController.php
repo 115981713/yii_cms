@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
  */
 class BaseController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -21,5 +22,24 @@ class BaseController extends Controller
                 ],
             ],
         ];
+    }
+
+    // 白名单// 登陆控制器的白名单
+    public $allowAllAction = [
+        'site/login',
+        'site/logout',
+    ]; 
+
+    public function beforeAction($action){
+        // 检验登陆状态合法性
+        if(in_array($action->getUniqueId(), $this->allowAllAction )){
+            return true;
+        }
+        if (!Yii::$app->user->id) {
+            // 非法跳转
+            $this->redirect('/site/login');
+            return false;
+        }
+        return true;
     }
 }

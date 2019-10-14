@@ -7,6 +7,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '文章分类';
+$this->params['breadcrumbs'][] = '文章管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cats-index">
@@ -33,6 +34,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template' => '{content}',
+                'header' => Html::a('图标'),
+                'buttons' => [
+                    'content' => function ($url, $model, $key) { 
+                        return $model['img'] ? Html::button('查看图片', ['class' => 'btn btn-sm btn-success img look_image','data' => $model['img']] ) : ''; 
+                    }
+                ],
+                'headerOptions' => ['style'=>'text-align:center;'],
+                'contentOptions' => ['class'=>'text-center'],
+            ],
+
+            [
+                'class' => 'yii\grid\ActionColumn',
                 'template' => '{is_valid}',
                 'header' => Html::a('状态'),
                 'buttons' => [
@@ -50,10 +64,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view}{update}{void}{valid}',//操作按钮
                 'buttons' => [//操作链接
                     'void' => function ($url, $model, $key) {
-                        return $model['status'] == 1 ? Html::a('<span class="glyphicon glyphicon-remove"></span>', $url, ['title' => '设置为无效'] ) : ''; 
+                        return $model['status'] == 1 ? Html::a('<span class="glyphicon glyphicon-remove layer_confirm" data="'.$model->id.'" data-c="cats" data-a="void" data-title="分类:'.$model->cat_name.',设置为无效"></span>', '#', ['title' => '设置为无效'] ) : ''; 
                     }
                     ,'valid' => function ($url, $model, $key) {
-                        return $model['status'] == 0 ? Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, ['title' => '设置为有效'] ) : ''; 
+                        return $model['status'] == 0 ? Html::a('<span class="glyphicon glyphicon-ok layer_confirm"  data="'.$model->id.'" data-c="cats" data-a="valid" data-title="分类:'.$model->cat_name.',设置为有效"></span>', '#', ['title' => '设置为有效'] ) : ''; 
                     },
                 ],
                 'headerOptions' => ['style'=>'text-align:center;'],//表单头居中

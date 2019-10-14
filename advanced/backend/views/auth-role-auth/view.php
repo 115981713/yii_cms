@@ -4,23 +4,22 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ArticleTags */
+/* @var $model backend\models\AuthRoleAuth */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = '文章管理';
-$this->params['breadcrumbs'][] = ['label' => '文章标签', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Auth Role Auths', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-tags-view">
+<div class="auth-role-auth-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('编辑', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('删除', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => '确定删除当前文章标签吗?',
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -30,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'tag_name',
-            'post_num',
+            'role_id',
+            'auth_id',
         ],
     ]) ?>
 

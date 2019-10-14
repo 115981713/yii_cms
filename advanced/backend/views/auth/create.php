@@ -4,14 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Cats */
+/* @var $model backend\models\Auth */
 
-$this->title = '新建文章分类';
-$this->params['breadcrumbs'][] = '文章管理';
-$this->params['breadcrumbs'][] = ['label' => '文章分类', 'url' => ['index']];
+$this->title = 'Create Auth';
+$this->params['breadcrumbs'][] = ['label' => 'Auths', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cats-create">
+<div class="auth-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
