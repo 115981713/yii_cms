@@ -35,7 +35,10 @@ class BaseController extends Controller
         if(in_array($action->getUniqueId(), $this->allowAllAction )){
             return true;
         }
-        if (!Yii::$app->user->id) {
+        $session = Yii::$app->session;
+        $user_id = $session->get('userid');
+        // 判断是否登录,未登录跳转到登录页
+        if (!$user_id) {
             // 非法跳转
             $this->redirect('/site/login');
             return false;

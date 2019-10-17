@@ -1,6 +1,6 @@
 <?php 
 return [
-	'Blog' => '博客j',
+	'Blog' => '后台j',
 	'Home' => '首页j',
 	'About' => '关于j',
 	'Contact' => '联系我们j',

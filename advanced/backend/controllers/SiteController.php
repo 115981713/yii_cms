@@ -5,6 +5,7 @@ use Yii;
 use yii\filters\AccessControl;
 use backend\controllers\Base\BaseController;
 use backend\models\LoginForm;
+use backend\models\Admin;
 use yii\filters\VerbFilter;
 
 /**
@@ -66,6 +67,15 @@ class SiteController extends BaseController
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $username = Yii::$app->request->post('LoginForm')['username'];
+            $admin = Admin::find()
+                ->where(['username'=>$username])
+                ->asArray()
+                ->one();
+            $session = Yii::$app->session;
+            $session->set('userid', $admin['id']);
+            $session->set('role_id', $admin['role']);
+            $session->set('username', $admin['username']);
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -77,7 +87,10 @@ class SiteController extends BaseController
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
+        $session = Yii::$app->session;
+        $session->set('userid', '');
+        $session->set('role_id', '');
+        $session->set('username', '');
         return $this->goHome();
     }
 }

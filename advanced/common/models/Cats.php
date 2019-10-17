@@ -49,7 +49,7 @@ class Cats extends \yii\db\ActiveRecord
     */
     public static function getAll(){
         $cats = ['0' => '暂无分类'];
-        $res = self::find()->asArray()->all();
+        $res = self::find()->orderBy('id desc')->asArray()->all();
         $res_cats = [];
         if ($res) {
             foreach ($res as $v) {

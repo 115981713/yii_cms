@@ -23,6 +23,7 @@ use Yii;
  */
 class Admin extends \yii\db\ActiveRecord
 {
+    public $name;
     /**
      * @inheritdoc
      */

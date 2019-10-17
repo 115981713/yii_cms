@@ -10,4 +10,12 @@ return [
         ],
         
     ],
+    'modules' => [
+    	'api' => [
+    		'class' => 'app\modules\api\Api'
+    	],
+    	'index' => [
+    		'class' => 'app\modules\index\index'
+    	]
+    ]
 ];

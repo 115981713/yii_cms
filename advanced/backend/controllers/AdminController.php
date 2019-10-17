@@ -5,14 +5,14 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Admin;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use backend\controllers\Base\BaseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AdminController implements the CRUD actions for Admin model.
  */
-class AdminController extends Controller
+class AdminController extends BaseController
 {
     /**
      * @inheritdoc
@@ -36,7 +36,9 @@ class AdminController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Admin::find(),
+            'query' => Admin::find()
+                ->select(['admin.*','auth_role.name'])
+                ->leftJoin('auth_role','admin.role=auth_role.id'),
         ]);
 
         return $this->render('index', [
